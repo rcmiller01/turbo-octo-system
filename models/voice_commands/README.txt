@@ -1,0 +1,1 @@
+Place your offline voice model (e.g. whisper.tflite or vosk model) here.
