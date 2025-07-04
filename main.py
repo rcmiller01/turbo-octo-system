@@ -5,6 +5,7 @@ from models.pose_detection.pose_estimator import PoseEstimator
 from models.food_classifier.food_estimator import FoodEstimator
 from models.voice_commands.voice_listener import VoiceListener
 from PIL import Image
+from utils.logger import log_workout, log_diet, log_health_metrics
 
 def run_coach():
     print("🏋️ AI Fitness Coach Lite\n")
@@ -21,15 +22,17 @@ def run_coach():
     print("🧠 Generating workout plan...")
     workout = generate_workout_plan(user_goal, equipment, time_available)
     print(workout)
+    log_workout(workout)
 
     print("\n🍽️ Generating diet plan...")
     diet = generate_diet_plan(health_data)
     print(diet)
+    log_diet(diet)
+    log_health_metrics(health_data)
 
-    # Optional: test image-based pose or food estimator
     try:
         print("\n📷 Running mock pose estimation...")
-        image = Image.new("RGB", (192, 192))  # Placeholder image
+        image = Image.new("RGB", (192, 192))
         pose_model = PoseEstimator()
         keypoints = pose_model.estimate_pose(image)
         print("Keypoints:", keypoints.shape)
