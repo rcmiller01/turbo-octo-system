@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(feature),
-        content: Text('$feature feature is not yet fully implemented.'),
+        content: Text('$feature will be available soon.'),
         actions: [TextButton(onPressed: () => Navigator.pop(context), child: Text('OK'))],
       ),
     );
@@ -28,27 +28,26 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('AI Fitness Coach Lite')),
-      body: Padding(
+      body: ListView(
         padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ElevatedButton(
-              onPressed: () => _showPlaceholder(context, 'Daily Logs'),
-              child: Text('View Daily Logs'),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => _showPlaceholder(context, 'Progress Charts'),
-              child: Text('View Progress Charts'),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => _showPlaceholder(context, 'Daily Summary'),
-              child: Text('View Daily Summary'),
-            ),
-          ],
-        ),
+        children: [
+          _buildButton(context, 'Start Workout'),
+          _buildButton(context, 'View Daily Summary'),
+          _buildButton(context, 'Progress Charts'),
+          _buildButton(context, 'Daily Logs'),
+          _buildButton(context, 'Export Data'),
+          _buildButton(context, 'Settings'),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildButton(BuildContext context, String label) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      child: ElevatedButton(
+        onPressed: () => _showPlaceholder(context, label),
+        child: Text(label, style: TextStyle(fontSize: 18)),
       ),
     );
   }
